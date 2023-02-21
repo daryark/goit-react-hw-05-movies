@@ -1,52 +1,40 @@
 import axios from 'axios';
 
 // /search/movie
-// const API_KEY = '0df85a9f4a0e6a141a9b6b1b0b1aadce';
-// const TRENDING_PATH = 'trending/movie/day';
+const API_KEY = '0df85a9f4a0e6a141a9b6b1b0b1aadce';
 // const SEARCH_PATH = '/search/movie';
-// axios.defaults.baseURL = 'https://api.themoviedb.org/3';
-// axios.defaults.params = {
-//   key: API_KEY,
-// };
-
-export const fetchTendingFilms = async () => {
-  // const { results } = await axios.get(`${TRENDING_PATH}?page=1`);
-  const { data } = await axios.get(
-    'https://api.themoviedb.org/3/trending/movie/day?api_key=0df85a9f4a0e6a141a9b6b1b0b1aadce'
-  );
-  return getNormalizedData(data);
+axios.defaults.baseURL = 'https://api.themoviedb.org/3';
+axios.defaults.params = {
+  api_key: API_KEY,
 };
 
-// export const fetchSearchFilms = async (value, page) => {
-//   const params = {
-//     query: value,
-//     page,
-//   };
+export const fetchTendingFilms = async () => {
+  const { data } = await axios.get('/trending/movie/day');
+  return getNormalizedTrending(data);
+};
 
-//   const { results } = await axios.get(SEARCH_PATH, { params });
-//   return {
-//     results: getNormalizedData(results),
-//     // total: data.totalHits,
-//   };
-// };
+export const fetchMovieDetails = async movieId => {
+  const { data } = await axios.get(`/movie/${movieId}`);
+  return getNormalizedDetails(data);
+};
 
-const getNormalizedData = ({ results }) =>
-  results.map(
-    ({
-      id,
-      title,
-      // release_date,
-      // overview,
-      // poster_path,
-      // genre_ids,
-      // popularity,
-    }) => ({
-      id,
-      title,
-      // release_date: new Date(release_date).getFullYear(),
-      // overview,
-      // poster_path,
-      // genre_ids,
-      // popularity,
-    })
-  );
+const getNormalizedTrending = ({ results }) =>
+  results.map(({ id, title }) => ({
+    id,
+    title,
+  }));
+
+const getNormalizedDetails = data => {
+  const { title, release_date, overview, poster_path, genres, popularity } =
+    data;
+  console.log(poster_path);
+
+  return {
+    title,
+    release_date: new Date(release_date).getFullYear(),
+    overview,
+    poster_path,
+    genres: genres.map(({ name }) => ({ name })),
+    popularity,
+  };
+};

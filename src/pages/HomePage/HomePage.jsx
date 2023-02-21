@@ -19,6 +19,7 @@ export default function HomePage({ results }) {
         // const { results } = result;
         // setFilms(prev => [...prev, ...results]);
         setFilms(results);
+        setError(null);
       } catch (error) {
         setError(error.message);
       } finally {

@@ -8,14 +8,11 @@ export const StyledNavLink = styled(NavLink)`
 
   color: black;
   border-bottom: 2px solid transparent;
-  transform: scaleX(0);
-  transition: border-color 250ms cubic-bezier(0.4, 0, 0.1, 0),
-    scale 250ms cubic-bezier(0.4, 0, 0.1, 0);
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.1, 0);
 
   &.active {
     border-color: green;
     color: green;
-    transform: scaleX(1);
   }
 `;
 

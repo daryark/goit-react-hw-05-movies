@@ -1,11 +1,20 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 // import { useState, useEffect } from 'react';
-// import { getFilms } from 'service/films-service';
+
 import HomePage from '../../pages/HomePage/HomePage';
 import MoviesPage from '../../pages/MoviesPage/MoviesPage';
 
+import { FilmsList } from 'components/FilmsList/FilmsList';
+import { MovieDetails } from 'pages/MovieDetails/MovieDetails';
+
+// import { getFilms } from 'service/films-service';
+
 import { StyledNavLink, Container, List, Section } from './App.styled';
+import NotFound from 'pages/NotFound/NotFound';
+
+import { Cast } from 'components/Cast/Cast';
+import { Reviews } from 'components/Reviews/Reviews';
 
 export const App = () => {
   return (
@@ -25,13 +34,14 @@ export const App = () => {
       <Container>
         <Routes>
           <Route path="/" element={<HomePage />}>
-            {/* <Route index element={<Movies />} /> */}
-            {/* <Route path="movies/:movieId">
-            <Route path="cast" />
-            <Route path="reviews" />
-          </Route> */}
+            <Route index element={<FilmsList />} />
           </Route>
-          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies" element={<MoviesPage />}></Route>
+          <Route path="/movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
     </>
