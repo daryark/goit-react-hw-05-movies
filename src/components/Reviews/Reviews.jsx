@@ -32,9 +32,9 @@ export function Reviews() {
       {error !== null && <p>{error}</p>}
       {loading && <p>Loader add</p>}
       <ul>
-        {reviews?.length > 0 &&
+        {Boolean(reviews) &&
           reviews.map(({ author, content }) => (
-            <li>
+            <li key={author}>
               <p>{author}</p>
               <p>{content}</p>
             </li>

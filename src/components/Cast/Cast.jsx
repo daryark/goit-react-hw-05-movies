@@ -32,10 +32,16 @@ export function Cast() {
       {error !== null && <p>{error}</p>}
       {loading && <p>Loader add</p>}
       <ul>
-        {cast?.length > 0 &&
+        {Boolean(cast) &&
           cast.map(({ character, profile_path, name }) => (
-            <li>
-              <img src={profile_path} alt={name} />
+            <li key={name}>
+              <img
+                src={
+                  profile_path ??
+                  'https://via.placeholder.com/200x300.png?text=No+photo'
+                }
+                alt={name}
+              />
               <p>
                 {name} as ({character})
               </p>

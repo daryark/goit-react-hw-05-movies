@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export function FilmsList({ films }) {
   return (
     <ul>
-      {films?.length > 0 &&
+      {Boolean(films) &&
         films.map(({ title, id }) => (
           <li key={id}>
             <Link to={`/movies/${id}`}>{title}</Link>
@@ -13,3 +14,12 @@ export function FilmsList({ films }) {
     </ul>
   );
 }
+
+FilmsList.propTypes = {
+  films: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+};

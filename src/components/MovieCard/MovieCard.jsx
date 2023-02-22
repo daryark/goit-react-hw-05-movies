@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export function MovieCard({ film }) {
   const { title, release_date, overview, poster_path, genres, popularity } =
@@ -6,7 +7,13 @@ export function MovieCard({ film }) {
 
   return (
     <div>
-      <img src={poster_path} alt={title} />
+      <img
+        src={
+          poster_path ??
+          'https://via.placeholder.com/300x450.png?text=No+poster'
+        }
+        alt={title}
+      />
       <h1>
         {title}
         <span>({release_date})</span>
@@ -22,3 +29,10 @@ export function MovieCard({ film }) {
     </div>
   );
 }
+
+MovieCard.propTypes = {
+  film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+};
