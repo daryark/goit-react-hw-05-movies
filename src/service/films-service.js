@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-// /search/movie
 const API_KEY = '0df85a9f4a0e6a141a9b6b1b0b1aadce';
-// const SEARCH_PATH = '/search/movie';
 axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 axios.defaults.params = {
   api_key: API_KEY,
@@ -10,7 +8,13 @@ axios.defaults.params = {
 
 export const fetchTendingFilms = async () => {
   const { data } = await axios.get('/trending/movie/day');
-  return getNormalizedTrending(data);
+  return getNormalizedFilmsData(data);
+};
+
+export const fetchSearchFilms = async value => {
+  const { data } = await axios.get(`/search/movie?query=${value}`);
+
+  return getNormalizedFilmsData(data);
 };
 
 export const fetchMovieDetails = async movieId => {
@@ -18,7 +22,12 @@ export const fetchMovieDetails = async movieId => {
   return getNormalizedDetails(data);
 };
 
-const getNormalizedTrending = ({ results }) =>
+export const fetchCast = async movieId => {
+  const { data } = await axios.get(`/movie/${movieId}/credits`);
+  return getNormalizedCast(data);
+};
+
+const getNormalizedFilmsData = ({ results }) =>
   results.map(({ id, title }) => ({
     id,
     title,
@@ -27,14 +36,20 @@ const getNormalizedTrending = ({ results }) =>
 const getNormalizedDetails = data => {
   const { title, release_date, overview, poster_path, genres, popularity } =
     data;
-  console.log(poster_path);
 
   return {
     title,
     release_date: new Date(release_date).getFullYear(),
     overview,
-    poster_path,
+    poster_path: 'https://image.tmdb.org/t/p/w500' + poster_path,
     genres: genres.map(({ name }) => ({ name })),
     popularity,
   };
 };
+
+const getNormalizedCast = ({ cast }) =>
+  cast.map(({ character, profile_path, name }) => ({
+    character,
+    profile_path: 'https://image.tmdb.org/t/p/w500' + profile_path,
+    name,
+  }));

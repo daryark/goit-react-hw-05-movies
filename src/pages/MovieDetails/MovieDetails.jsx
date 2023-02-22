@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, Outlet } from 'react-router-dom';
 
 import { MovieCard } from 'components/MovieCard/MovieCard';
-
 import { fetchMovieDetails } from 'service/films-service';
-
 import { Section } from 'components/App/App.styled';
 
-export function MovieDetails() {
+export default function MovieDetails() {
   const [film, setFilm] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
