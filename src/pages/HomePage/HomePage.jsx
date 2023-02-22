@@ -16,8 +16,6 @@ export default function HomePage({ results }) {
       try {
         setLoading(true);
         const results = await fetchTendingFilms();
-        // const { results } = result;
-        // setFilms(prev => [...prev, ...results]);
         setFilms(results);
         setError(null);
       } catch (error) {
@@ -28,12 +26,6 @@ export default function HomePage({ results }) {
     }
     getFilms();
   }, []);
-
-  // useEffect(() => {
-  //   if (!films) return;
-
-  //   console.log('there are films');
-  // }, [films]);
 
   return (
     <Section>

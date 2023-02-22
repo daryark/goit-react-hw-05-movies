@@ -4,31 +4,44 @@ import { fetchCast } from 'service/films-service';
 
 export function Cast() {
   const { movieId } = useParams();
-  const [cast, setCast] = useState(null);
+  const [cast, setCast] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(movieId);
     if (!movieId) return;
-    async function getCast() {
-      const cast = await fetchCast(movieId);
 
-      setCast(cast);
+    async function getCast() {
+      try {
+        setLoading(true);
+        const cast = await fetchCast(movieId);
+
+        setCast(cast);
+        setError(null);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
     }
-    // console.log(cast);
     getCast();
   }, [movieId]);
 
-  console.log(cast);
   return (
-    <ul>
-      {cast.map(({ character, profile_path, name }) => (
-        <li>
-          <img src={profile_path} alt={name} />
-          <p>
-            {name} ({character})
-          </p>
-        </li>
-      ))}
-    </ul>
+    <>
+      {error !== null && <p>{error}</p>}
+      {loading && <p>Loader add</p>}
+      <ul>
+        {cast?.length > 0 &&
+          cast.map(({ character, profile_path, name }) => (
+            <li>
+              <img src={profile_path} alt={name} />
+              <p>
+                {name} as ({character})
+              </p>
+            </li>
+          ))}
+      </ul>
+    </>
   );
 }

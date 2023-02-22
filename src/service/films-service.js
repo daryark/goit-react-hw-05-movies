@@ -27,6 +27,11 @@ export const fetchCast = async movieId => {
   return getNormalizedCast(data);
 };
 
+export const fetchReviews = async movieId => {
+  const { data } = await axios.get(`/movie/${movieId}/reviews`);
+  return getNormalizedReviews(data);
+};
+
 const getNormalizedFilmsData = ({ results }) =>
   results.map(({ id, title }) => ({
     id,
@@ -41,7 +46,7 @@ const getNormalizedDetails = data => {
     title,
     release_date: new Date(release_date).getFullYear(),
     overview,
-    poster_path: 'https://image.tmdb.org/t/p/w500' + poster_path,
+    poster_path: 'https://image.tmdb.org/t/p/w300' + poster_path,
     genres: genres.map(({ name }) => ({ name })),
     popularity,
   };
@@ -50,6 +55,13 @@ const getNormalizedDetails = data => {
 const getNormalizedCast = ({ cast }) =>
   cast.map(({ character, profile_path, name }) => ({
     character,
-    profile_path: 'https://image.tmdb.org/t/p/w500' + profile_path,
+    profile_path:
+      profile_path && 'https://image.tmdb.org/t/p/w200' + profile_path,
     name,
+  }));
+
+const getNormalizedReviews = ({ results }) =>
+  results.map(({ author, content }) => ({
+    author,
+    content,
   }));

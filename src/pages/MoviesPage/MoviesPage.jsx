@@ -18,9 +18,7 @@ export default function MoviesPage({ results }) {
       try {
         setLoading(true);
         const results = await fetchSearchFilms(value);
-        // const { results } = result;
-        // setFilms(prev => [...prev, ...results]);
-        setFilms([...results]);
+        setFilms(results);
         setError(null);
       } catch (error) {
         setError(error.message);

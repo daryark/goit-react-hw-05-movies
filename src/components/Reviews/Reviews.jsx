@@ -1,13 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { fetchReviews } from 'service/films-service';
 
 export function Reviews() {
+  const [reviews, setReviews] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const { movieId } = useParams();
+
+  useEffect(() => {
+    if (!movieId) return;
+    async function getReviews() {
+      try {
+        setLoading(true);
+        const reviews = await fetchReviews(movieId);
+
+        setReviews(reviews);
+        setError(null);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    getReviews();
+  }, [movieId]);
+
   return (
-    <div>
-      This Lorem ipsum dolor sit amet consectetur adipisicing elit. Id,
-      provident consectetur voluptas laudantium architecto quae! Ex sequi
-      debitis fugit eum quis eos a! Neque veritatis, exercitationem dolorem esse
-      laboriosam aspernatur, repudiandae numquam quia sint facere sequi magni
-      tenetur asperiores ea!
-    </div>
+    <>
+      {error !== null && <p>{error}</p>}
+      {loading && <p>Loader add</p>}
+      <ul>
+        {reviews?.length > 0 &&
+          reviews.map(({ author, content }) => (
+            <li>
+              <p>{author}</p>
+              <p>{content}</p>
+            </li>
+          ))}
+      </ul>
+    </>
   );
 }
