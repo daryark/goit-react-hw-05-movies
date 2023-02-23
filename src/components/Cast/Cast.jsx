@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom';
 import { fetchCast } from 'service/films-service';
 
 export function Cast() {
-  const { movieId } = useParams();
   const [cast, setCast] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const { movieId } = useParams();
 
   useEffect(() => {
     if (!movieId) return;

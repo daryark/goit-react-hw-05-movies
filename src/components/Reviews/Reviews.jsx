@@ -33,8 +33,8 @@ export function Reviews() {
       {loading && <p>Loader add</p>}
       <ul>
         {Boolean(reviews) &&
-          reviews.map(({ author, content }) => (
-            <li key={author}>
+          reviews.map(({ author, content, id }) => (
+            <li key={id}>
               <p>{author}</p>
               <p>{content}</p>
             </li>

@@ -61,7 +61,8 @@ const getNormalizedCast = ({ cast }) =>
   }));
 
 const getNormalizedReviews = ({ results }) =>
-  results.map(({ author, content }) => ({
+  results.map(({ author, content, id }) => ({
     author,
     content,
+    id,
   }));
