@@ -3,7 +3,6 @@ import { LineWave } from 'react-loader-spinner';
 
 export default function Loader() {
   return (
-    // <Wrapper>
     <LineWave
       height="150"
       width="150"
@@ -19,6 +18,3 @@ export default function Loader() {
     />
   );
 }
-// {
-//   /* </Wrapper> */
-// }
