@@ -11,7 +11,7 @@ export function MovieCard({ film }) {
 
   return (
     <>
-      <Link to={location.state.from}>Come back</Link>
+      <Link to={location.state?.from ?? '/'}>Come back</Link>
       <Card>
         <img
           src={
