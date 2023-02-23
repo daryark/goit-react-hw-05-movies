@@ -3,4 +3,6 @@ import styled from 'styled-components';
 
 export const SectionDetails = styled(Section)`
   padding-bottom: 250px;
+  display: flex;
+  gap: 10px;
 `;

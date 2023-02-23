@@ -5,6 +5,7 @@ import { MovieCard } from 'components/MovieCard/MovieCard';
 import { fetchMovieDetails } from 'service/films-service';
 import { Section } from 'components/App/App.styled';
 import { SectionDetails } from './MovieDetails.styled';
+import Loader from 'components/Loader/Loader';
 
 export default function MovieDetails() {
   const [film, setFilm] = useState(null);
@@ -37,7 +38,7 @@ export default function MovieDetails() {
     <>
       <Section>
         {error !== null && <p>{error}</p>}
-        {loading && <p>Loader add</p>}
+        {loading && <Loader />}
         {film && <MovieCard film={film} />}
       </Section>
       <SectionDetails>

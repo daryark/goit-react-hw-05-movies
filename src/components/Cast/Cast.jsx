@@ -1,8 +1,9 @@
+import Loader from 'components/Loader/Loader';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCast } from 'service/films-service';
 
-export function Cast() {
+export default function Cast() {
   const [cast, setCast] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -31,7 +32,7 @@ export function Cast() {
   return (
     <>
       {error !== null && <p>{error}</p>}
-      {loading && <p>Loader add</p>}
+      {loading && <Loader />}
       <ul>
         {Boolean(cast) &&
           cast.map(({ character, profile_path, name }) => (

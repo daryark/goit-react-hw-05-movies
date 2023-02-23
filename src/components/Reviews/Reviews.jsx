@@ -1,8 +1,9 @@
+import Loader from 'components/Loader/Loader';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchReviews } from 'service/films-service';
 
-export function Reviews() {
+export default function Reviews() {
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ export function Reviews() {
   return (
     <>
       {error !== null && <p>{error}</p>}
-      {loading && <p>Loader add</p>}
+      {loading && <Loader />}
       <ul>
         {Boolean(reviews) &&
           reviews.map(({ author, content, id }) => (

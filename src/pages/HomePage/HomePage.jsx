@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import { FilmsList } from 'components/FilmsList/FilmsList';
-
 import { fetchTendingFilms } from 'service/films-service';
-
 import { Section } from '../../components/App/App.styled';
+import Loader from 'components/Loader/Loader';
 
 export default function HomePage({ results }) {
   const [films, setFilms] = useState([]);
@@ -30,7 +29,7 @@ export default function HomePage({ results }) {
   return (
     <Section>
       {error !== null && <p>{error}</p>}
-      {loading && <p>Loader add</p>}
+      {loading && <Loader />}
 
       <FilmsList films={films} />
     </Section>

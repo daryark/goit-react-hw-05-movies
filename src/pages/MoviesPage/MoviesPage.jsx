@@ -1,4 +1,5 @@
 import { FilmsList } from 'components/FilmsList/FilmsList';
+import Loader from 'components/Loader/Loader';
 import { SearchForm } from 'components/SearchForm/SearchForm';
 import React from 'react';
 import { useEffect, useState } from 'react';
@@ -42,7 +43,7 @@ export default function MoviesPage({ results }) {
       <SearchForm submit={getValue} />
       <FilmsList films={films} />
       {error !== null && <p>{error}</p>}
-      {loading && <p>Loader add</p>}
+      {loading && <Loader />}
     </>
   );
 }
