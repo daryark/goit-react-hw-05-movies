@@ -41,7 +41,7 @@ export function MovieCard({ film }) {
 
 MovieCard.propTypes = {
   film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     title: PropTypes.string,
   }).isRequired,
 };

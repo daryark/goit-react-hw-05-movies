@@ -48,7 +48,7 @@ const getNormalizedDetails = data => {
     overview,
     poster_path: poster_path && 'https://image.tmdb.org/t/p/w300' + poster_path,
     genres: genres.map(({ name }) => ({ name })),
-    popularity,
+    popularity: Math.round(popularity),
   };
 };
 

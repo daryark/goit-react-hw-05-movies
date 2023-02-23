@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import {
@@ -7,6 +7,7 @@ import {
   Section,
   StyledNavLink,
 } from 'components/App/App.styled';
+import Loader from 'components/Loader/Loader';
 
 export default function Layout() {
   return (
@@ -24,7 +25,9 @@ export default function Layout() {
         </Section>
       </Container>
       <Container as="main">
-        <Outlet />
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
       </Container>
     </>
   );
