@@ -2,6 +2,7 @@ import { FilmsList } from 'components/FilmsList/FilmsList';
 import { SearchForm } from 'components/SearchForm/SearchForm';
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { fetchSearchFilms } from 'service/films-service';
 
@@ -9,15 +10,17 @@ export default function MoviesPage({ results }) {
   const [films, setFilms] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [value, setValue] = useState('');
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const q = searchParams.get('q');
 
   useEffect(() => {
-    if (!value) return;
+    if (!q) return;
 
     async function getFilms() {
       try {
         setLoading(true);
-        const results = await fetchSearchFilms(value);
+        const results = await fetchSearchFilms(q);
         setFilms(results);
         setError(null);
       } catch (error) {
@@ -27,10 +30,10 @@ export default function MoviesPage({ results }) {
       }
     }
     getFilms();
-  }, [value]);
+  }, [q]);
 
   const getValue = inputValue => {
-    setValue(inputValue);
+    setSearchParams({ q: inputValue });
     setFilms([]);
   };
 
