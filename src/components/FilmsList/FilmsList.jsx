@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 export function FilmsList({ films }) {
   const location = useLocation();
-  console.log('location', location);
 
   return (
     <ul>

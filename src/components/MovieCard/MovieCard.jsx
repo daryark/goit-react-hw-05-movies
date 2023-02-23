@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 export function MovieCard({ film }) {
   const location = useLocation();
+
   const { title, release_date, overview, poster_path, genres, popularity } =
     film;
 

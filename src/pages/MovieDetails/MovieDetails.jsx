@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 
 import { MovieCard } from 'components/MovieCard/MovieCard';
 import { fetchMovieDetails } from 'service/films-service';
 import { Section } from 'components/App/App.styled';
-import { SectionDetails } from './MovieDetails.styled';
+import { SectionDetails, SubLink } from './MovieDetails.styled';
 import Loader from 'components/Loader/Loader';
 
 export default function MovieDetails() {
@@ -42,10 +42,12 @@ export default function MovieDetails() {
         {film && <MovieCard film={film} />}
       </Section>
       <SectionDetails>
-        <Link to={location.pathname.includes('cast') ? '' : 'cast'}>Cast</Link>
-        <Link to={location.pathname.includes('reviews') ? '' : 'reviews'}>
+        <SubLink to={location.pathname.includes('cast') ? '' : 'cast'}>
+          Cast
+        </SubLink>
+        <SubLink to={location.pathname.includes('reviews') ? '' : 'reviews'}>
           Reviews
-        </Link>
+        </SubLink>
         <Outlet />
       </SectionDetails>
     </>
