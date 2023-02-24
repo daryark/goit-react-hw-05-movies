@@ -42,10 +42,16 @@ export default function MovieDetails() {
         {film && <MovieCard film={film} />}
       </Section>
       <SectionDetails>
-        <SubLink to={location.pathname.includes('cast') ? '' : 'cast'}>
+        <SubLink
+          to={location.pathname.includes('cast') ? '' : 'cast'}
+          state={{ from: location.state?.from }}
+        >
           Cast
         </SubLink>
-        <SubLink to={location.pathname.includes('reviews') ? '' : 'reviews'}>
+        <SubLink
+          to={location.pathname.includes('reviews') ? '' : 'reviews'}
+          state={{ from: location.state?.from }}
+        >
           Reviews
         </SubLink>
         <Outlet />
